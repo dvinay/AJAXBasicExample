@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>AJAX Basic Application</title>
+	<script type="text/javascript">
+		var request;
+		
+		function sendInfo() {
+			//fetching input data from text field
+			var v = document.SampleForm.inputdata.value;
+			var url = "sample.jsp?data="+v;
+			if(window.XMLHttpRequest){
+				request = new XMLHttpRequest();
+			} else if(window.ActiveXObject) {
+				request = new ActiveXObject();
+			} else {
+				Alert("Can't configure AJAX calls");
+			}
+			try {
+				//It is called whenever readystate attribute changes
+				request.onreadystatechange = getInfo;
+				//request.open(method, url, async, username, password)
+				request.open("GET", url, true);//true for Asynchronous calls
+				request.send();
+			} catch (e){
+				alert("Unable to connect to server");
+			}
+		}
+		function getInfo() {
+			if(request.readyState == 4){
+				//get data from the server side
+				var val = request.responseText;
+				document.getElementById("output").innerHTML = val;
+			}
+		}
+	</script>
+	
+</head>
+<body>
+	<h1>Basic AJAX example</h1>
+	<pre>
+		This is a basic AJAX Asynchronous call example. 
+		It generated numbers from JSP file.
+	</pre>
+	<form name="SampleForm">
+		<input type="text" name="inputdata">
+		<br>
+		<input type="button" name="showdata" value="Multiplication Table" onclick="sendInfo()">
+	</form>
+	<span id="output"> </span>
+</body>
+</html>
