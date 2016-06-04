@@ -1,2 +1,2 @@
-# AJAXBasicExample
+# AJAX BasicExample
 AJAX sample example
